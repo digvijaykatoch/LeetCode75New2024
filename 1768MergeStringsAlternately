@@ -1,0 +1,34 @@
+class Solution {
+    public String mergeAlternately(String word1, String word2) {
+        int len=0;
+        
+        //Check constraints and set iterable length
+        if(word1.length()>0 && word2.length() > 0){
+            if(word1.length()<101 && word2.length()<101){
+                if(word1.length()>word2.length()){
+                    len=word1.length();
+                } else{
+                    len=word2.length();
+                }
+            }
+        }
+
+        char[] retArr = new char[word1.length()+word2.length()];
+        int arrCounter=0;
+
+        //Iterate through the variables
+        for(int i=0; i<len; i++){
+            if(i<word1.length()){
+                retArr[arrCounter] = word1.charAt(i);
+                arrCounter++;
+            }
+            if(i<word2.length()){
+                retArr[arrCounter]=word2.charAt(i);
+                arrCounter++;
+            }
+        }
+
+        
+return String.valueOf(retArr);
+    }
+}
