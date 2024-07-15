@@ -1,0 +1,48 @@
+import java.util.*;
+
+// Online Java Compiler
+// Use this editor to write, compile and run your Java code online
+public class HelloWorld {
+    public static void main(String[] args) {
+        // Create a sample binary tree
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+
+        // Fetch and print tree elements in ascending order
+        List list = fetchAscending(root);
+        Collections.sort(list);
+        System.out.println("Tree elements in ascending order: " + list);
+    }
+    
+    public static List fetchAscending(TreeNode root) {
+        List list = new ArrayList();
+        if (root == null) {
+            return list;
+        }
+        list.addAll(fetchAscending(root.left));
+        list.add(root.val);
+        list.addAll(fetchAscending(root.right));
+        return list;
+    }
+}
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode() {}
+
+    TreeNode(int val) {
+        this.val = val;
+    }
+
+    TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
