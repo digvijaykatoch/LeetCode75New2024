@@ -1,0 +1,29 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int longestZigZag(TreeNode root) {
+            return switchDirection(root,-1,-1);
+        }
+
+    int switchDirection(TreeNode root, int lsum, int rsum){
+        //We are asked path length not end direction
+        if(root==null){
+            return Math.max(lsum,rsum);
+        } else{
+            return Math.max(switchDirection(root.left,rsum+1,-1), switchDirection(root.right,-1,lsum+1));
+        }
+    }
+}
