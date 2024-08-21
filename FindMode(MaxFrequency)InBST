@@ -1,0 +1,64 @@
+import java.util.*;
+
+class Solution {
+    public int[] findMode(TreeNode root) {
+        if (root == null) {
+            return new int[0];
+        }
+
+        // Step 1: Collect all values from the BST
+        List<Integer> subList = traverseAndReturn(root);
+        
+        // Step 2: Find the modes from the collected values
+        return findModes(subList);
+    }
+
+    // Traverse the BST in-order and collect values
+    public List<Integer> traverseAndReturn(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        traverseInOrder(root, list);
+        return list;
+    }
+
+    // Helper method to perform in-order traversal
+    private void traverseInOrder(TreeNode root, List<Integer> list) {
+        if (root == null) {
+            return;
+        }
+        traverseInOrder(root.left, list);
+        list.add(root.val);
+        traverseInOrder(root.right, list);
+    }
+
+    // Find the mode(s) from the list of values
+    public int[] findModes(List<Integer> subList) {
+        if (subList.isEmpty()) {
+            return new int[0];
+        }
+
+        // Frequency map
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        for (Integer value : subList) {
+            frequencyMap.put(value, frequencyMap.getOrDefault(value, 0) + 1);
+        }
+
+        // Find the maximum frequency
+        int maxFrequency = Collections.max(frequencyMap.values());
+
+        // Collect all values with the maximum frequency
+        List<Integer> modeList = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+            if (entry.getValue() == maxFrequency) {
+                modeList.add(entry.getKey());
+            }
+        }
+
+        // Convert the list of modes to an array
+        int[] result = new int[modeList.size()];
+        for (int i = 0; i < modeList.size(); i++) {
+            result[i] = modeList.get(i);
+        }
+
+        return result;
+    }
+}
