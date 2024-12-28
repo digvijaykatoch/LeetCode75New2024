@@ -1,0 +1,26 @@
+import java.util.*;
+
+class Solution {
+    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+        
+        List<List<Integer>> diff = new ArrayList<>();
+        
+        // Use generics for type safety
+        Set<Integer> set1 = new HashSet<>();
+        Set<Integer> set2 = new HashSet<>();
+        
+        // Add elements of nums1 and nums2 to respective sets
+        for (int num : nums1) {
+            set1.add(num);
+        }
+        for (int num : nums2) {
+            set2.add(num);
+        }
+
+        // Directly add the difference (nums1 - nums2) and (nums2 - nums1) to the list
+        diff.add(new ArrayList<>(set1) {{ removeAll(set2); }});  // Set1 - Set2
+        diff.add(new ArrayList<>(set2) {{ removeAll(set1); }});  // Set2 - Set1
+        
+        return diff;
+    }
+}
