@@ -1,0 +1,29 @@
+import java.util.Arrays;
+
+class Solution {
+    public int[] successfulPairs(int[] spells, int[] potions, long success) {
+        int[] result = new int[spells.length];
+        Arrays.sort(potions);  // Sort the potions for binary search
+
+        // For each spell, find how many potions make the spell successful.
+        for (int i = 0; i < spells.length; i++) {
+            long target = (success + spells[i] - 1) / spells[i];  // Calculate the target potion value for this spell
+
+            // Binary search for the first valid potion >= target
+            int low = 0, high = potions.length - 1;
+            while (low <= high) {
+                int mid = low + (high - low) / 2;
+                if (potions[mid] >= target) {
+                    high = mid - 1;  // Move left to find the smallest valid potion
+                } else {
+                    low = mid + 1;  // Move right to find a valid potion
+                }
+            }
+
+            // After binary search, `low` is the index of the first valid potion
+            result[i] = potions.length - low;  // All potions from `low` onwards are valid
+        }
+
+        return result;
+    }
+}
