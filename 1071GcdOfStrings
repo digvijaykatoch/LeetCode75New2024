@@ -1,0 +1,30 @@
+import java.math.BigInteger;
+
+class Solution {
+    public String gcdOfStrings(String str1, String str2) {
+
+        // Check if str1 + str2 == str2 + str1 to ensure they are made from the same repeating pattern
+        if (!str1.concat(str2).equals(str2.concat(str1))) {
+            return ""; // No common repeating pattern
+        }
+
+        // Calculate the GCD of the lengths of str1 and str2
+        int gcdLen = gcd(str1.length(), str2.length());
+
+        // The substring from str1 of length gcdLen
+        String gcdSubstring = str1.substring(0, gcdLen);
+
+        // Return the GCD substring directly
+        return gcdSubstring; 
+    }
+
+    // Helper method to compute the GCD of two numbers
+    private int gcd(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+}
