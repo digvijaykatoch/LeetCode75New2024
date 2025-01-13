@@ -1,0 +1,41 @@
+import java.util.LinkedHashSet;
+
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        // If s is empty, it is trivially a subsequence of any string.
+        if (s.isEmpty()) {
+            return true;
+        }
+
+        LinkedHashSet<Character> setS = new LinkedHashSet<>();
+        LinkedHashSet<Character> setT = new LinkedHashSet<>();
+
+        // Add characters of s and t into LinkedHashSets to maintain order
+        for (char c : s.toCharArray()) {
+            setS.add(c);
+        }
+        for (char c : t.toCharArray()) {
+            setT.add(c);
+        }
+
+        // Use retainAll to check if all characters of s are in t
+        LinkedHashSet<Character> tempSetT = new LinkedHashSet<>(setT);
+        tempSetT.retainAll(setS);
+
+        // If tempSetT has the same size as setS, it means all characters of s are in t
+        if (tempSetT.size() == setS.size()) {
+            // Now, verify if the characters in s appear in t in the same order
+            int i = 0; // pointer for s
+            for (int j = 0; j < t.length(); j++) {
+                if (i < s.length() && s.charAt(i) == t.charAt(j)) {
+                    i++;
+                }
+                if (i == s.length()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+}
