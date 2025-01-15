@@ -1,0 +1,22 @@
+class Solution {
+    public int pivotIndex(int[] nums) {
+        int totalSum = 0;
+        int leftSum = 0;
+        
+        // Calculate the total sum of the array
+        for (int num : nums) {
+            totalSum += num;
+        }
+        
+        // Check for each index
+        for (int i = 0; i < nums.length; i++) {
+            // If leftSum == totalSum - leftSum - nums[i], it means we found the pivot index
+            if (leftSum == totalSum - leftSum - nums[i]) {
+                return i;
+            }
+            leftSum += nums[i];  // Update leftSum to include the current element
+        }
+        
+        return -1;  // If no pivot index found
+    }
+}
