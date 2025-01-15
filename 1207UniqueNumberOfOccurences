@@ -1,0 +1,24 @@
+import java.util.*;
+
+class Solution {
+    public boolean uniqueOccurrences(int[] arr) {
+        Map<Integer, Integer> countMap = new HashMap<>();
+        
+        // Count the frequency of each element
+        for (int num : arr) {
+            countMap.put(num, countMap.getOrDefault(num, 0) + 1);
+        }
+        
+        // Use a HashSet to track frequencies
+        Set<Integer> frequencySet = new HashSet<>();
+        
+        // Check if any frequency is repeated
+        for (int freq : countMap.values()) {
+            if (!frequencySet.add(freq)) {
+                return false;  // If adding to set fails, a frequency is repeated
+            }
+        }
+        
+        return true;  // All frequencies are unique
+    }
+}
